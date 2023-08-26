@@ -1,0 +1,76 @@
+﻿@page
+@model BookStore.Pages.PurchaseModel
+@{
+    ViewData["Title"] = "Purchase page";
+}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10">
+            <div class="card shadow-lg">
+                <div class="card-header bg-info bg-opacity-25 text-primary p-3">
+                    <div class="row justify-content-center">
+                        <div class="col-sm-6">
+                            <h5><i class="bi bi-cart3"></i> Shopping Cart</h5>
+                        </div>
+                        <div class="col-sm-6">
+                            <a class="btn btn-primary w-100" asp-page="Index">
+                                <i class="bi bi-reply-all"></i> Continue shopping
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    @foreach (var item in Model.Cart)
+                    {
+                        <div class="row align-items-center">
+                            <div class="col-md-2">
+                                <img class="img-responsive" src="~/img/book_img.jpg" width="70">
+                            </div>
+                            <div class="col-md-4">
+                                <h5 class="product-name"><strong>@item.Book.Title</strong></h5>
+                                <h6><small>@item.Book.Description</small></h6>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-6 text-right align-self-center d-flex gap-5">
+                                        <h6>$@item.Book.Price<span class="text-muted"> x </span>@item.Quantity</h6>
+                                        <h6>$@item.SubTotal</h6>
+                                    </div>
+                                    <div class="col-4 d-flex gap-1">
+                                        <form method="post" asp-page="Purchase" asp-page-handler="AddQty">
+                                            <button class="btn btn-primary" name="id" value="@item.Book.Id">+</button>
+                                        </form>
+                                        <form method="post" asp-page="Purchase" asp-page-handler="MinusQty">
+                                            <button class="btn btn-danger" name="id" value="@item.Book.Id">-</button>
+                                        </form>
+                                    </div>
+                                    <div class="col-2">
+                                        <form method="post" asp-page="Purchase" asp-page-handler="RemoveItem">
+                                            <button class="btn btn-link btn-sm" name="id" value="@item.Book.Id">
+                                                <i class="bi bi-trash3 text-danger fs-4"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    }
+                </div>
+                <div class="card-footer p-3">
+                    <div class="row">
+                        <div class="col-9">
+                            <h4 class="text-end">Total <strong>$@ViewData["total"]</strong></h4>
+                        </div>
+                        <div class="col-3">
+                            <button type="button" class="btn btn-success">
+                                Checkout
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

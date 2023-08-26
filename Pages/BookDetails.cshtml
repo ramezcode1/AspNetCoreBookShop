@@ -1,0 +1,33 @@
+﻿@page "{id}"
+@model BookStore.Pages.BookDetailsModel
+
+@{
+    ViewData["Title"] = "BookDetails";
+}
+
+<section class="py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="~/img/book_img.jpg" alt="..." /></div>
+            <div class="col-md-6">
+                <div class="small mb-1">ISBN: @Model.Book.ISBN</div>
+                <h1 class="display-6 fw-bolder">@Model.Book.Title</h1>
+                <p>By <cite class="text-primary">@Model.Book.Author</cite></p>
+                <div class="border border-1 border-primary px-3 py-1 mb-2 rounded-1 d-inline-flex">
+                    @Model.Book.BookCategory.Name
+                </div>
+                <p class="lead">@Model.Book.Description</p>
+                <div class="fs-5 mb-5">
+                    <span>Price: $@Model.Book.Price</span>
+                </div>
+                <form class="d-flex" method="post" asp-page="Purchase" asp-page-handler="AddToCart">
+                    <input class="form-control text-center me-3" name="quantity" type="number" value="1" style="max-width: 3.5rem" />
+                    <button class="btn btn-outline-dark flex-shrink-0" type="submit" name="id" value="@Model.Book.Id">
+                        <i class="bi-cart-fill me-1"></i>
+                        Add to cart
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

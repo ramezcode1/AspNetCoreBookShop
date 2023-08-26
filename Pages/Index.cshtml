@@ -1,0 +1,37 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4">
+            @foreach (var item in Model.Book)
+            {
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        <!-- Product image-->
+                        <img class="card-img-top" src="/img/book_img.jpg" alt="..." />
+                        <!-- Product details-->
+                        <div class="card-body pb-0 text-center">
+                            <!-- Product name-->
+                            <h5 class="fw-bolder">@item.Title</h5>
+                            <p>by <cite class="text-warning">@item.Author</cite></p>
+                            <!-- Product price-->
+                            <p>Price: $@item.Price</p>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div>
+                                <a class="btn btn-outline-dark mt-auto w-100" asp-page="BookDetails" asp-route-id="@item.Id">
+                                    View Details
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
